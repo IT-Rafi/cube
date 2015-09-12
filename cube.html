@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.box{
+				width:200px; height:200px; 
+				transform:perspective(800px) rotateY(-60deg) rotateX(30deg); 
+				transform-style:preserve-3d;
+				 position:relative; 
+				 margin:200px auto;
+				 }
+			.box div{
+				border: 1px solid #DC143C;
+				width: 100%;
+				height: 100%;
+				position: absolute;left: 0;top: 0;
+				line-height: 200px;
+				text-align: center;
+				color: #fff;
+				font-size: 30px;
+				overflow:hidden;
+				background:palevioletred; 
+			}
+			 iframe{ width:100%; height:100%;}
+			.front{transform: translateZ(100px);}
+			.back{transform: translateZ(-100px) scale(1,-1);}
+			.down{transform: rotateY(90deg) translateZ(-100px) scale(1,-1);}
+			.left{transform: rotateX(-90deg) translateZ(100px);}
+			.top{transform: rotateX(90deg) translateZ(100px);}
+			.crown{transform: rotateY(90deg) translateZ(100px);}
+		</style>
+		<script>
+			window.onload=function(){
+				var oBox=document.querySelector('.box');
+				var y=-60;
+				var x=30;
+				//点击移动
+//				oBox.onmousedown=function(ev){
+//					var disX=ev.clientX-y;
+//					var disY=ev.clientY-x;
+//					document.onmousemove=function(ev){
+//						y=ev.clientX-disX;
+//						x=ev.clientY-disY;
+//						oBox.style.transform='perspective(800px) rotateY('+y+'deg) rotateX('+x+'deg)';
+//					}
+//					document.onmouseup=function(){
+//						document.onmousemove=null;
+//						document.onmouseup=null;
+//			
+//					};
+//					return false;
+//				}
+				//键盘移动
+				var bTop=false;
+				var bBottom=false;
+				var bLeft=false;
+				var bRight=false;
+				
+				document.onkeydown=function(ev){
+					switch(ev.keyCode){
+						case 37:
+							bLeft=true;
+						break;
+						case 38:
+							bTop=true;
+						break;
+						case 39:
+							bRight=true;
+						break;
+						case 40:
+							bBottom=true;
+						break;
+					}
+				}
+				document.onkeyup=function(ev){
+					switch(ev.keyCode){
+						case 37:
+							bLeft=false;
+						break;
+						case 38:
+							bTop=false;
+						break;
+						case 39:
+							bRight=false;
+						break;
+						case 40:
+							bBottom=false;
+						break;
+					}
+				}
+				setInterval(function(){
+					if(bTop){
+						x+=10
+					}
+					if(bBottom){
+						x-=10
+					}
+					if(bLeft){
+						y-=10
+					}
+					if(bRight){
+						y+=10
+					}
+					oBox.style.transform='perspective(800px) rotateY('+y+'deg) rotateX('+x+'deg)';
+				},30)
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box">
+			<div class="front">1</div>
+			<div class="back">2</div>
+			<div class="left">3</div>
+			<div class="top">4</div>
+			<div class="down">5</div>
+			<div class="crown">6</div>
+		</div>
+	</body>
+</html>
